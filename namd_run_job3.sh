@@ -8,5 +8,4 @@ namd2 ubq_gbis_eq_job3.conf > ubq_gbis_eq_job3.log
 mkdir OutFilesFromNAMD_job3
 rm *job2*
 cp * OutFilesFromNAMD_job3/.
-rm *
 tar czf OutFilesFromNAMD_job3.tar.gz OutFilesFromNAMD_job3
