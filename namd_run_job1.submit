@@ -3,9 +3,10 @@ Executable = namd_run_job1.sh
 
 transfer_input_files = ubq_gbis_eq_job1.conf, ubq.pdb, ubq.psf, par_all27_prot_lipid.inp, OutFilesFromNAMD_job0.tar.gz
 should_transfer_files=Yes
+transfer_output_files = OutFilesFromNAMD_job1.tar.gz
 when_to_transfer_output = ON_EXIT
 
-output        = OutFilesFromNAMD_job1.tar.gz
+output        = job.ouput.job1 
 error         = job.error.job1
 log           = job.log.job1
 
