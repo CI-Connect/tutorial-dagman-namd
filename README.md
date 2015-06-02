@@ -57,7 +57,7 @@ integration steps to consume less computational time but demonstrate the ability
 of DAGMan. 
 
 <div>
-   <img alt="Software Carpentry banner" src="{{page.root}}/novice/DHTC/DAGManImages/Slide2.png" width="300">
+   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide2.png" width="300">
 </div>
 
 Say we have created four MD jobs: *A0*, *A1*, *A2* and *A3* that we want to run one 
@@ -143,7 +143,7 @@ successfully completed. Of course, a through check up requires looking at the ou
 
 ### Parallel DAG
 <div>
-   <img alt="Software Carpentry banner" src="{{page.root}}/novice/DHTC/DAGManImages/Slide3.png" width="200">
+   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide3.png" width="200">
 </div>
 
 Now we consider the workflow of two-linear set of jobs A0, A1, B0 and B1. Again these are 
@@ -168,7 +168,7 @@ simulations independent of each other. The job X determines what is the simulati
 of MD simulations A1 and B1. In the DAGMan language, X is the parent of A1 and B1.  
 
 <div>
-   <img alt="Software Carpentry banner" src="{{page.root}}/novice/DHTC/DAGManImages/Slide4.png" width="200">
+   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide2.png" width="200">
 </div>
 
 The input files, job submission files and execution scripts of the 
