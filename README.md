@@ -38,6 +38,8 @@ apply DAGMan to run a set of molecular dynamics (MD) simulations.
 <div>
    <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.png" width="300">
    <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.png" width="150">
+   ![alt text](https://github.com/OSGConnect/tutorial-dagman-namd/blob/master/DAGManImages/Slide1.jpg)
+   ![](DAGManImages/Slide1.png?raw=true)
 </div>
 
 ## Running MD Simulation with DAGMan    
