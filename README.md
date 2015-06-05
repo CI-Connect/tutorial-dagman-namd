@@ -218,5 +218,5 @@ $ condor_submit_dag linear.dag.rescue
 - [x] One may write DAGMan files consisting of several DAGMan jobs. 
 
 
-## Help
-For further assistance or questions, please email `connect-support@opensciencegrid.org` or visit http://support.opensciencegrid.org. 
+## Getting Help
+For further assistance or questions, please email to OSG User Support team  at `user-support@opensciencegrid.org` or visit http://support.opensciencegrid.org for help desk information and community forums.
