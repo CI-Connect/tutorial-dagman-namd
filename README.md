@@ -13,9 +13,9 @@
  * [Help](#help)
 
 ## Objectives
--[x] Learn about graphs as they relate to computation
--[x] Learn how a graph manager can implement a workflow management system
--[x] Use DAGMan to manage a set of molecular dyanmics calculations
+- [x] Learn about graphs as they relate to computation
+- [x] Learn how a graph manager can implement a workflow management system
+- [x] Use DAGMan to manage a set of molecular dyanmics calculations
 
 ## Overview 
 
