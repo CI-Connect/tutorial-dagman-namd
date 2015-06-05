@@ -29,8 +29,8 @@ not. A directed acyclic graph does not form a loop and the nodes (jobs) are conn
 along a specific direction. In this tutorial we will learn how to 
 apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations. 
 
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
+![fig 1](/DAGManImages/Slide1.jpg)
+Format: ![Figure 1](url)
 
 
 <div>
