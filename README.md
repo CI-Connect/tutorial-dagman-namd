@@ -10,7 +10,7 @@
      * [Job Retry](#job-retry)
      * [Rescue DAG](#rescue-dag)
  * [Keypoints](#keypoints)
- * [Help](#help)
+ * [Getting Help](#getting-help)
 
 ## Objectives
 - [x] Learn about graphs as they relate to computation
@@ -218,4 +218,4 @@ $ condor_submit_dag linear.dag.rescue
 
 
 ## Getting Help
-For further assistance or questions, please email to OSG User Support team  at `user-support@opensciencegrid.org` or visit http://support.opensciencegrid.org for help desk information and community forums.
+For further assistance or questions, please email the OSG User Support team  at `user-support@opensciencegrid.org` or visit the [help desk and community forums](http://support.opensciencegrid.org).
