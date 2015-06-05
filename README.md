@@ -25,7 +25,7 @@ systems help to deal with such tasks or data manipulations. [DAGMan](http://rese
 that are mapped as a directed acyclic graph. A cyclic graph forms a loop while an acyclic graph does 
 not. A directed acyclic graph does not form a loop and the nodes (jobs) are connected 
 along a specific (causal) direction. In this tutorial we will learn how to 
-apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. While NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores, one can exploit its capabilities in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using workflow tools such as DAGMan. 
+apply DAGMan to help manage a set of molecular dynamics (_MD_) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. While NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores, one can exploit its capabilities in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using workflow tools such as DAGMan. 
 
 ![fig 1](/DAGManImages/Slide1.jpg)
 ![fig 2](/DAGManImages/Slide5.jpg)
@@ -68,8 +68,8 @@ $ cd tutorial-dagman-namd
 ```
 
 The directory `tutorial-dagman-namd` contains all the necessary files. The file 
-`linear.dag` is the DAGMan script. The files `namd_run_job0.submit, ...` are the 
-HTCondor script files that execute the files `namd_run_job0.sh,...`.
+`linear.dag` is the DAGMan script. The files `namd_run_job0.submit`, ... are the 
+HTCondor script files that execute the files `namd_run_job0.sh`,... etc.
 
 Let us take a look at the DAG file `linear.dag`.  
 
@@ -86,8 +86,8 @@ PARENT A1 CHILD A2  #Inter Dependency between Job A1 and A2
 PARENT A2 CHILD A3  #Inter Dependency between Job A2 and A3
 ```
 
-The first four lines after the comment are the listing of the condor jobs  
-with name assignment:  A0, A1, A2 and A3. Here the HTCondor job submit files 
+The first four lines after the comment are the listing of the HTCondor jobs  
+with name assignment:  `A0`, `A1`, `A2` and `A3`. Here the HTCondor job submit files 
 that run the individual MD similations are  `namd_run_job0.submit`, `namd_run_job1.submit...`.   
 The next three lines describe the relationships among the four jobs. 
 
