@@ -1,5 +1,6 @@
 # DAGMan - NAMD examples
 
+ * [Objectives](#objectives)
  * [Overview](#overview)
  * [Running an MD Simulation with DAGMan](#running-md-simulation-with-dagman)
    * [Linear DAG](#linear-dag)
@@ -11,21 +12,21 @@
  * [Keypoints](#keypoints)
  * [Help](#help)
 
-### Objectives
-> Learn about workflow management 
-> Learn how to use DAGMan to complete a set of computational jobs
+## Objectives
+*  Learn about workflow management 
+* Learn how to use DAGMan to complete a set of computational jobs
 
 ## Overview 
 
 In scientific computing, one may have to perform several computational tasks or 
-data manipulations that are inter dependent. Workflow management 
+data manipulations that are interdependent. Workflow management 
 systems help to deal with such tasks or data manipulations. DAGMan is a workflow management 
-system developed for distributed high throughput 
+system developed by the HTCondor team for distributed high throughput 
 computing. DAGMan (Directed Acyclic Graph Manager) handles computational jobs 
-that are mapped as a directed acyclic graph. Cyclic graph forms loop while acyclic graph does 
-not form loop. Directed acyclic graph does not form loop and the nodes (jobs) are connected 
-along specific direction. In this section, we will learn how to 
-apply DAGMan to run a set of molecular dynamics (MD) simulations. 
+that are mapped as a directed acyclic graph. A cyclic graph forms a loop while an acyclic graph does 
+not. A directed acyclic graph does not form a loop and the nodes (jobs) are connected 
+along a specific direction. In this tutorial we will learn how to 
+apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations. 
 
 
 <div>
