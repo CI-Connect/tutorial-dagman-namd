@@ -1,6 +1,5 @@
 # DAGMan - NAMD examples
 
- * [Objectives](#objectives)
  * [Overview](#overview)
  * [Running an MD Simulation with DAGMan](#running-md-simulation-with-dagman)
    * [Linear DAG](#linear-dag)
@@ -12,9 +11,9 @@
  * [Keypoints](#keypoints)
  * [Help](#help)
 
-## Objectives
-*   Learn about Workflow Management 
-*   Learn how to use DAGMan to complete a set of computational jobs
+>Objectives
+>   Learn about Workflow Management 
+>   Learn how to use DAGMan to complete a set of computational jobs
 
 ## Overview 
 
