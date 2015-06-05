@@ -87,12 +87,11 @@ PARENT A2 CHILD A3  #Inter Dependency between Job A2 and A3
 ```
 
 The first four lines after the comment are the listing of the condor jobs  
-with name assignment:  A0, A1, A2 and A3. Here the condor job submit files are 
- `namd_run_job0.submit, namd_run_job1.submit...` that run the individual 
-MD simulations.  The next three lines describe the relationship
-among the four jobs. 
+with name assignment:  A0, A1, A2 and A3. Here the HTCondor job submit files 
+that run the individual MD similations are  `namd_run_job0.submit`, `namd_run_job1.submit...`.   
+The next three lines describe the relationships among the four jobs. 
 
-Now we submit the DAGMan job.  
+Now we submit the DAGMan task.  
 
 ```
 $ condor_submit_dag linear.dag 
@@ -110,7 +109,7 @@ Submitting job(s).
 
 ```
 
-Note that the DAG file is submitted through  `condor_submit_dag`.
+Note that the DAG file is submitted using the command `condor_submit_dag`.
 Let's monitor the job status every two seconds.  (Recall `connect watch`
 from a previous lesson.)
 
@@ -125,12 +124,12 @@ $ connect watch 2
 2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
 ```
 
-We need to type `Ctrl-C` to exit from watch command. We see two running jobs. One is the dagman 
+We need to type `Ctrl-C` to exit from watch command. We see two running jobs. One is the DAGMan 
 job which manages the execution of NAMD jobs. The other is the actual NAMD 
-execution `namd_run_job0.sh`. Once the dag completes, you will see four .tar.gz 
-files `OutFilesFromNAMD_job0.tar.gz, OutFilesFromNAMD_job1.tar.gz, OutFilesFromNAMD_job2.tar.gz, 
-OutFilesFromNAMD_job3.tar.gz`. If the output files are not empty, the jobs are 
-successfully completed. Of course, a through check up requires looking at the output results.  
+execution `namd_run_job0.sh`. Once the DAG completes, you will see four `.tar.gz` 
+files `OutFilesFromNAMD_job0.tar.gz`, `OutFilesFromNAMD_job1.tar.gz`, `OutFilesFromNAMD_job2.tar.gz`, 
+and `OutFilesFromNAMD_job3.tar.gz`. If the output files are not empty, the jobs are 
+successfully completed.  Of course, a thorough check requires inspection of the results.  
 
 ### Parallel DAG
 
@@ -161,8 +160,7 @@ of MD simulations A1 and B1. In the DAGMan language, X is the parent of A1 and B
 ![fig 5](/DAGManImages/Slide4.jpg)
 
 
-The input files, job submission files and execution scripts of the 
-jobs are located at 
+The input files, job submission files and execution scripts of the jobs are located at:
 
 ```
 $ cd tutorial-dagman-namd/X-DAG
@@ -187,7 +185,6 @@ $ nano linear.dag #open the linear.dag file
  
 Retry A2 3 #This means re-try job A2 for three times in case of failures. 
 
-
 # If you want to retry jobs A2 and A3 for 7 times,  edit the linear.dag 
  
 ### At the end of the linear.dag file
@@ -201,20 +198,19 @@ In case DAGMan  does not complete the set of jobs, it would create a rescue DAG 
 suffix `.rescue`. The rescue DAG file contains the information about where to restart 
 the jobs. Say for example, in our workflow of four linear jobs, the jobs A0 and A1 are 
 finished and A2 is incomplete. In such a case we do not want to start executing the jobs 
-all over again rather we want to start from Job A2. This information is embedded 
-in the rescue dag file. In our example of linear.dag, the rescue dag file would 
-be `linear.dag.rescue`. So we re-submit the rescue dag file as follows
+all over again but rather we want to start from Job A2. This information is embedded 
+in the rescue dag file. In our example of `linear.dag`, the rescue DAG file would 
+be `linear.dag.rescue`. So we re-submit the rescue DAG task as follows:
 
 ```
 $ condor_submit_dag linear.dag.rescue
 ```
  
-<div class="keypoints" markdown="1">
 
 ## Keypoints
 - [x] DAGMan handles computational jobs that are mapped as a directed acyclic graph.
-- [x] `condor_submit_dag` is the command to submit a DAGMan job. 
-- [x] One may write DAGMan files consisting of several DAGMan jobs. 
+- [x] `condor_submit_dag` is the command to submit a DAGMan task. 
+- [x] One may write DAGMan files consisting of several DAGMan tasks. 
 
 
 ## Getting Help
