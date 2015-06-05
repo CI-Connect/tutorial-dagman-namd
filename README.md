@@ -49,9 +49,9 @@ simplicity, the MD simulations run only for few
 integration steps to consume less computational time but demonstrate the ability 
 of DAGMan. 
 
-<div>
-   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide2.png" width="300">
-</div>
+
+![fig 3](/DAGManImages/Slide2.jpg)
+
 
 Say we have created four MD jobs: `A0`, `A1`, `A2` and `A3` that we want to run one 
 after another and combine the results. This means that the output files from the 
@@ -136,9 +136,8 @@ successfully completed. Of course, a through check up requires looking at the ou
 
 ### Parallel DAG
 
-<div>
-   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide3.png" width="200">
-</div>
+![fig 4](/DAGManImages/Slide3.jpg)
+
 
 Now we consider the workflow of two-linear set of jobs A0, A1, B0 and B1. Again these are 
 NAMD jobs. The job A0 is parent 
@@ -161,9 +160,8 @@ finishing A0 and B0, we do some analysis with the job X. The jobs A1 and B1 are 
 simulations independent of each other. The job X determines what is the simulation temperature 
 of MD simulations A1 and B1. In the DAGMan language, X is the parent of A1 and B1.  
 
-<div>
-   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide2.png" width="200">
-</div>
+![fig 5](/DAGManImages/Slide2.jpg)
+
 
 The input files, job submission files and execution scripts of the 
 jobs are located at 
