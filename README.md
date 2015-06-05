@@ -13,8 +13,9 @@
  * [Help](#help)
 
 ## Objectives
-*  Learn about workflow management 
-* Learn how to use DAGMan to complete a set of computational jobs
+* Learn about graphs as they relate to computation
+* Learn how a graph manager can implement a workflow management system
+* Use DAGMan to manage a set of molecular dyanmics calculations
 
 ## Overview 
 
@@ -30,8 +31,8 @@ apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations.
 
 
 <div>
-   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.png" width="300">
-   <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.png" width="150">
+<img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.png" width="300">
+<img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.png" width="150">
 </div>
 
 ## Running MD Simulation with DAGMan    
