@@ -213,9 +213,10 @@ $ condor_submit_dag linear.dag.rescue
 <div class="keypoints" markdown="1">
 
 ## Keypoints
-*   DAGMan (Directed Acyclic Graph Manager) handles computational jobs that are mapped as a directed acyclic graph.
-*   *condor_submit_dag* - is the command to submit a dagman job. 
-*   One may write a DAGMan file consisting of several DAGMan jobs. 
+- [x] DAGMan handles computational jobs that are mapped as a directed acyclic graph.
+- [x] `condor_submit_dag` is the command to submit a DAGMan job. 
+- [x] One may write DAGMan files consisting of several DAGMan jobs. 
+
 
 ## Help
 For further assistance or questions, please email `connect-support@opensciencegrid.org` or visit http://support.opensciencegrid.org. 
