@@ -11,12 +11,11 @@
  * [Keypoints](#keypoints)
  * [Help](#help)
 
->Objectives
->   Learn about Workflow Management 
->   Learn how to use DAGMan to complete a set of computational jobs
+### Objectives
+> Learn about workflow management 
+> Learn how to use DAGMan to complete a set of computational jobs
 
 ## Overview 
-
 
 In scientific computing, one may have to perform several computational tasks or 
 data manipulations that are inter dependent. Workflow management 
