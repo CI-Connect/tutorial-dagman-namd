@@ -30,21 +30,8 @@ along a specific direction. In this tutorial we will learn how to
 apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations. 
 
 ![fig 1](/DAGManImages/Slide1.jpg)
-Format: ![Figure 1](url)
+![fig 2](/DAGManImages/Slide5.jpg)
 
-
-<div>
-![Image of Slide1]
-(https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.jpg)
-![Image of Slide5]
-(https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.jpg)
-</div>
-
-
-<div>
-<img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.png" width="300">
-<img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.png" width="150">
-</div>
 
 ## Running MD Simulation with DAGMan    
 
