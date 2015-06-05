@@ -1,7 +1,5 @@
-Table of Contents
-=================
+# DAGMan - NAMD examples
 
-  * [Workflow Management - DAGMan](#workflow-management---dagman)
     * [Objectives](#objectives)
     * [Overview](#overview)
     * [Running MD Simulation with DAGMan](#running-md-simulation-with-dagman)
@@ -14,8 +12,6 @@ Table of Contents
     * [Keypoints](#keypoints)
     * [Help](#help)
 
-
-# Workflow Management - DAGMan
 
 ## Objectives
 *   Learn about Workflow Management 
