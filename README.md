@@ -160,7 +160,7 @@ finishing A0 and B0, we do some analysis with the job X. The jobs A1 and B1 are 
 simulations independent of each other. The job X determines what is the simulation temperature 
 of MD simulations A1 and B1. In the DAGMan language, X is the parent of A1 and B1.  
 
-![fig 5](/DAGManImages/Slide2.jpg)
+![fig 5](/DAGManImages/Slide4.jpg)
 
 
 The input files, job submission files and execution scripts of the 
@@ -170,7 +170,7 @@ jobs are located at
 $ cd tutorial-dagman-namd/X-DAG
 ```
 
-Again we are missing the `.dag` file here. See if you can write the DAGfile for this example 
+Again we are missing the `.dag` file here. See if you can write the DAGfile for this example. 
 
 ### Job Retry and Rescue###
 
