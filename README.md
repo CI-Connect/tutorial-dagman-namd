@@ -151,32 +151,32 @@ jobs. What is missing here is the `.dag` file. See if you can write the DAGfile 
 and submit the job. 
 
 ### X-DAG
-We consider one more example of jobs A0, A1, X, B0 and B1 that allows the cross communication 
-between two parallel jobs. The jobs A0 and B0 are two-independent NAMD simulations. After 
-finishing A0 and B0, we do some analysis with the job X. The jobs A1 and B1 are two MD 
-simulations independent of each other. The job X determines what is the simulation temperature 
-of MD simulations A1 and B1. In the DAGMan language, X is the parent of A1 and B1.  
+We consider one more example of jobs `A0`, `A1`, `X`, `B0` and `B1` that allows the cross communication 
+between two parallel jobs. The jobs `A0` and `B0` are two independent NAMD simulations. After 
+finishing `A0` and `B0`, we do some analysis with the job `X`. The jobs `A1` and `B1` are two MD 
+simulations independent of each other. The `X` job determines what is the simulation temperature 
+of MD simulations `A1` and `B1`. In DAGMan lingo, `X` is the parent of `A1` and `B1`.  
 
 ![fig 5](/DAGManImages/Slide4.jpg)
 
-
-The input files, job submission files and execution scripts of the jobs are located at:
+The input files, job submission files and execution scripts of the jobs are located in the `X-DAG` subdirectory:
 
 ```
 $ cd tutorial-dagman-namd/X-DAG
 ```
 
-Again we are missing the `.dag` file here. See if you can write the DAGfile for this example. 
+Again we are missing the `.dag` file here. See if you can write the DAG file for this example. 
 
 ### Job Retry and Rescue###
 
 In the above examples, the set of jobs have simple inter relationship.  Indeed,  DAGMan is 
-capable of dealing with set of jobs with complex inter relations.  One may also write a DAG 
-file for set of DAG files where each of the DAG file contains the workflow for set of condor jobs.  Also DAGMan can help with the resubmission of uncompleted portions of a DAG, when one or more nodes result in failure.  
+capable of dealing with set of jobs with complex interdependencies.  One may also write a DAG 
+file for set of DAG files where each of the DAG file contains the workflow for set of condor jobs.  
+Also DAGMan can help with the resubmission of uncompleted portions of a DAG, when one or more nodes result in failure.  
 
 #### Job Retry####
 
-Say for example,  job A2 in the above example is  important and you want to eliminate the possibility as much as possible. One way is to re-try the specific job A2 a few times. DAGMan would re-try  failed jobs when you specify the following line at the end of dag file.
+Say for example,  job `A2` in the above example is important and you want to eliminate the possibility as much as possible. One way is to retry the specific job `A2` a few times. DAGMan would retry failed jobs when you specify the following line at the end of dag file:
 
 ``` 
 $ nano linear.dag #open the linear.dag file
@@ -194,12 +194,12 @@ Retry A3 7 #This means re-try job A3 for seven times in case of failures.
  
 #### Rescue DAG
 
-In case DAGMan  does not complete the set of jobs, it would create a rescue DAG file with a 
+If DAGMan fails to complete the complete task, it creates a rescue DAG file with a 
 suffix `.rescue`. The rescue DAG file contains the information about where to restart 
-the jobs. Say for example, in our workflow of four linear jobs, the jobs A0 and A1 are 
-finished and A2 is incomplete. In such a case we do not want to start executing the jobs 
-all over again but rather we want to start from Job A2. This information is embedded 
-in the rescue dag file. In our example of `linear.dag`, the rescue DAG file would 
+the jobs. Say for example, in our workflow of four linear jobs, the jobs `A0` and `A1` are 
+finished and `A2` is incomplete. In such a case we do not want to start executing the jobs 
+all over again but rather we want to start from Job `A2`. This information is embedded 
+in the rescue DAG file. In our example of `linear.dag`, the rescue DAG file would 
 be `linear.dag.rescue`. So we re-submit the rescue DAG task as follows:
 
 ```
