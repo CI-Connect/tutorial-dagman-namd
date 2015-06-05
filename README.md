@@ -21,12 +21,12 @@
 
 In scientific computing, one may have to perform several computational tasks or 
 data manipulations that are interdependent. Workflow management 
-systems help to deal with such tasks or data manipulations. [DAGMan](http://research.cs.wisc.edu/htcondor/dagman/dagman.html) is a workflow management system developed by the HTCondor team for distributed high throughput 
-computing. DAGMan (Directed Acyclic Graph Manager) handles computational jobs 
-that are mapped as a directed acyclic graph. A cyclic graph forms a loop while an acyclic graph does 
+systems help to deal with such tasks or data manipulations. [DAGMan](http://research.cs.wisc.edu/htcondor/dagman/dagman.html) (Directed Acyclic Graph Manager) is a workflow management system developed by the HTCondor team for distributed high 
+throughput computing tasks. DAGMan handles sets of computational jobs 
+that are mapped as a directed acyclic graph. A cyclic graph (first figure below) forms a loop while an acyclic graph does 
 not. A directed acyclic graph does not form a loop and the nodes (jobs) are connected 
-along a specific direction. In this tutorial we will learn how to 
-apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations. 
+along a specific (causal) direction. In this tutorial we will learn how to 
+apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. While NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores, one can exploit its capabilities in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using workflow tools such as DAGMan. 
 
 ![fig 1](/DAGManImages/Slide1.jpg)
 ![fig 2](/DAGManImages/Slide5.jpg)
