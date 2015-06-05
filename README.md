@@ -1,5 +1,6 @@
 # DAGMan - NAMD examples
 
+  * [DAGMan - NAMD examples](#dagman---namd-examples)
     * [Objectives](#objectives)
     * [Overview](#overview)
     * [Running MD Simulation with DAGMan](#running-md-simulation-with-dagman)
@@ -11,7 +12,6 @@
         * [Rescue DAG](#rescue-dag)
     * [Keypoints](#keypoints)
     * [Help](#help)
-
 
 ## Objectives
 *   Learn about Workflow Management 
