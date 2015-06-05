@@ -2,13 +2,13 @@
 
  * [Objectives](#objectives)
  * [Overview](#overview)
- * [Running MD Simulation with DAGMan](#running-md-simulation-with-dagman)
- * [Linear DAG](#linear-dag)
- * [Parallel DAG](#parallel-dag)
- * [X-DAG](#x-dag)
- * [Job Retry and Rescue](#job-retry-and-rescue)
- * [Job Retry](#job-retry)
- * [Rescue DAG](#rescue-dag)
+ * [Running an MD Simulation with DAGMan](#running-md-simulation-with-dagman)
+   * [Linear DAG](#linear-dag)
+   * [Parallel DAG](#parallel-dag)
+   * [X-DAG](#x-dag)
+   * [Job Retry and Rescue](#job-retry-and-rescue)
+     * [Job Retry](#job-retry)
+     * [Rescue DAG](#rescue-dag)
  * [Keypoints](#keypoints)
  * [Help](#help)
 
@@ -43,7 +43,7 @@ submitting small jobs repeatedly with restart files may not be practical in many
 situations. DAGMan offers an elegant and simple solution to run the set of jobs. With 
 the DAGMan script one could run a long time scale MD simulations of biomolecules. 
 
-### Linear DAG###
+### Linear DAG
 
 In our first example, we will break the MD simulation in four steps and run it through the 
 DAGMan script. NAMD software is used to run each MD simulation. For the sake of 
@@ -55,16 +55,16 @@ of DAGMan.
    <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide2.png" width="300">
 </div>
 
-Say we have created four MD jobs: *A0*, *A1*, *A2* and *A3* that we want to run one 
+Say we have created four MD jobs: `A0`, `A1`, `A2` and `A3` that we want to run one 
 after another and combine the results. This means that the output files from the 
-job *A0* serves as an input for the job *A1* and so forth. The input and output 
+job `A0` serves as an input for the job `A1` and so forth. The input and output 
 dependencies of the jobs are such that they need to be progressed in a linear 
-fashion:  *A0-->A1-->A2-->A3*. These set of jobs clearly represents an 
-acyclic graph. In DAGMan language, job *A0* is parent of job *A1*,  job *A1* is 
-parent of *A2* and job *A3* is parent of *A4*. 
+fashion:  `A0-->A1-->A2-->A3`. These set of jobs clearly represents an 
+acyclic graph. In DAGMan language, job `A0` is parent of job `A1`,  job `A1` is 
+parent of `A2` and job `A3` is parent of `A4`. 
 
 The DAGMan script and the necessary files are available to the user 
-by invoking the *tutorial* command. 
+by invoking the `tutorial` command. 
 
 ```
 $ tutorial dagman-namd
@@ -95,7 +95,6 @@ with name assignment:  A0, A1, A2 and A3. Here the condor job submit files are
  `namd_run_job0.submit, namd_run_job1.submit...` that run the individual 
 MD simulations.  The next three lines describe the relationship
 among the four jobs. 
-
 
 Now we submit the DAGMan job.  
 
@@ -129,6 +128,7 @@ $ connect watch 2
 
 2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
 ```
+
 We need to type `Ctrl-C` to exit from watch command. We see two running jobs. One is the dagman 
 job which manages the execution of NAMD jobs. The other is the actual NAMD 
 execution `namd_run_job0.sh`. Once the dag completes, you will see four .tar.gz 
@@ -137,6 +137,7 @@ OutFilesFromNAMD_job3.tar.gz`. If the output files are not empty, the jobs are
 successfully completed. Of course, a through check up requires looking at the output results.  
 
 ### Parallel DAG
+
 <div>
    <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide3.png" width="200">
 </div>
@@ -221,5 +222,5 @@ $ condor_submit_dag linear.dag.rescue
 *   *condor_submit_dag* - is the command to submit a dagman job. 
 *   One may write a DAGMan file consisting of several DAGMan jobs. 
 
-##Help
+## Help
 For further assistance or questions, please email `connect-support@opensciencegrid.org` or visit http://support.opensciencegrid.org. 
