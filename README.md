@@ -31,6 +31,13 @@ apply DAGMan to help manage a set of molecular dynamics (**MD**) simulations.
 
 
 <div>
+![Image of Slide1]
+(tutorial-dagman-namd/DAGManImages/Slide1.jpg)
+![Image of Slide5]
+(tutorial-dagman-namd/DAGManImages/Slide5.jpg)
+
+
+<div>
 <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide1.png" width="300">
 <img  src="https://github.com/OSGConnect/tutorial-dagman-namd/DAGManImages/Slide5.png" width="150">
 </div>
