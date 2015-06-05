@@ -21,8 +21,7 @@
 
 In scientific computing, one may have to perform several computational tasks or 
 data manipulations that are interdependent. Workflow management 
-systems help to deal with such tasks or data manipulations. DAGMan is a workflow management 
-system developed by the HTCondor team for distributed high throughput 
+systems help to deal with such tasks or data manipulations. [DAGMan](http://research.cs.wisc.edu/htcondor/dagman/dagman.html) is a workflow management system developed by the HTCondor team for distributed high throughput 
 computing. DAGMan (Directed Acyclic Graph Manager) handles computational jobs 
 that are mapped as a directed acyclic graph. A cyclic graph forms a loop while an acyclic graph does 
 not. A directed acyclic graph does not form a loop and the nodes (jobs) are connected 
