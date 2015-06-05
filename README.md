@@ -1,17 +1,16 @@
 # DAGMan - NAMD examples
 
-  * [DAGMan - NAMD examples](#dagman---namd-examples)
-    * [Objectives](#objectives)
-    * [Overview](#overview)
-    * [Running MD Simulation with DAGMan](#running-md-simulation-with-dagman)
-      * [Linear DAG](#linear-dag)
-      * [Parallel DAG](#parallel-dag)
-      * [X-DAG](#x-dag)
-      * [Job Retry and Rescue](#job-retry-and-rescue)
-        * [Job Retry](#job-retry)
-        * [Rescue DAG](#rescue-dag)
-    * [Keypoints](#keypoints)
-    * [Help](#help)
+ * [Objectives](#objectives)
+ * [Overview](#overview)
+ * [Running MD Simulation with DAGMan](#running-md-simulation-with-dagman)
+ * [Linear DAG](#linear-dag)
+ * [Parallel DAG](#parallel-dag)
+ * [X-DAG](#x-dag)
+ * [Job Retry and Rescue](#job-retry-and-rescue)
+ * [Job Retry](#job-retry)
+ * [Rescue DAG](#rescue-dag)
+ * [Keypoints](#keypoints)
+ * [Help](#help)
 
 ## Objectives
 *   Learn about Workflow Management 
@@ -223,6 +222,4 @@ $ condor_submit_dag linear.dag.rescue
 *   One may write a DAGMan file consisting of several DAGMan jobs. 
 
 ##Help
-For further assistance or questions, please email ***connect-support@opensciencegrid.org***
-
-
+For further assistance or questions, please email `connect-support@opensciencegrid.org` or visit http://support.opensciencegrid.org. 
