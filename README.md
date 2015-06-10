@@ -62,10 +62,8 @@ parent of `A2` and job `A3` is parent of `A4`.
 The DAGMan script and the necessary files are available to the user 
 by invoking the `tutorial` command. 
 
-```
-$ tutorial dagman-namd
-$ cd tutorial-dagman-namd
-```
+	$ tutorial dagman-namd
+	$ cd tutorial-dagman-namd
 
 The directory `tutorial-dagman-namd` contains all the necessary files. The file 
 `linear.dag` is the DAGMan script. The files `namd_run_job0.submit`, ... are the 
@@ -73,18 +71,16 @@ HTCondor script files that execute the files `namd_run_job0.sh`,... etc.
 
 Let us take a look at the DAG file `linear.dag`.  
 
-```
-$ nano linear.dag #open the linear.dag file
-
-######DAG file######    #comment
-Job A0 namd_run_job0.submit  #Job keyword, Job Name, Condor Job submission script.
-Job A1 namd_run_job1.submit  #Job keyword, Job Name, Condor Job submission script.
-Job A2 namd_run_job2.submit  #Job keyword, Job Name, Condor Job submission script.
-Job A3 namd_run_job3.submit  #Job keyword, Job Name, Condor Job submission script.
-PARENT A0 CHILD A1  #Inter Dependency between Job A0 and A1
-PARENT A1 CHILD A2  #Inter Dependency between Job A1 and A2 
-PARENT A2 CHILD A3  #Inter Dependency between Job A2 and A3
-```
+	$ nano linear.dag #open the linear.dag file
+	
+	######DAG file######    #comment
+	Job A0 namd_run_job0.submit  #Job keyword, Job Name, Condor Job submission script.
+	Job A1 namd_run_job1.submit  #Job keyword, Job Name, Condor Job submission script.
+	Job A2 namd_run_job2.submit  #Job keyword, Job Name, Condor Job submission script.
+	Job A3 namd_run_job3.submit  #Job keyword, Job Name, Condor Job submission script.
+	PARENT A0 CHILD A1  #Inter Dependency between Job A0 and A1
+	PARENT A1 CHILD A2  #Inter Dependency between Job A1 and A2 
+	PARENT A2 CHILD A3  #Inter Dependency between Job A2 and A3
 
 The first four lines after the comment are the listing of the HTCondor jobs  
 with name assignment:  `A0`, `A1`, `A2` and `A3`. Here the HTCondor job submit files 
@@ -93,36 +89,32 @@ The next three lines describe the relationships among the four jobs.
 
 Now we submit the DAGMan task.  
 
-```
-$ condor_submit_dag linear.dag 
-
------------------------------------------------------------------------
-File for submitting this DAG to Condor           : linear.dag.condor.sub
-Log of DAGMan debugging messages                 : linear.dag.dagman.out
-Log of Condor library output                     : linear.dag.lib.out
-Log of Condor library error messages             : linear.dag.lib.err
-Log of the life of condor_dagman itself          : linear.dag.dagman.log
-
-Submitting job(s).
-1 job(s) submitted to cluster 1317501.
------------------------------------------------------------------------
-
-```
+	$ condor_submit_dag linear.dag 
+	
+	-----------------------------------------------------------------------
+	File for submitting this DAG to Condor           : linear.dag.condor.sub
+	Log of DAGMan debugging messages                 : linear.dag.dagman.out
+	Log of Condor library output                     : linear.dag.lib.out
+	Log of Condor library error messages             : linear.dag.lib.err
+	Log of the life of condor_dagman itself          : linear.dag.dagman.log
+	
+	Submitting job(s).
+	1 job(s) submitted to cluster 1317501.
+	-----------------------------------------------------------------------
+	
 
 Note that the DAG file is submitted using the command `condor_submit_dag`.
 Let's monitor the job status every two seconds.  (Recall `connect watch`
 from a previous lesson.)
 
-```
-$ connect watch 2
-
--- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
- ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
-1317646.0   username          10/30 17:27   0+00:00:28 R  0   0.3  condor_dagman     
-1317647.0   username          10/30 17:28   0+00:00:00 I  0   0.0  namd_run_job0.sh  
-
-2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
-```
+	$ connect watch 2
+	
+	-- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
+	 ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
+	1317646.0   username          10/30 17:27   0+00:00:28 R  0   0.3  condor_dagman     
+	1317647.0   username          10/30 17:28   0+00:00:00 I  0   0.0  namd_run_job0.sh  
+	
+	2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
 
 We need to type `Ctrl-C` to exit from watch command. We see two running jobs. One is the DAGMan 
 job which manages the execution of NAMD jobs. The other is the actual NAMD 
@@ -142,9 +134,7 @@ of A0 and the job B0 is the parent of B1. The jobs A0 and A1 do not depend on B0
 means we have two parallel DAGs that are represented as A0->A1 and B0->B1. The arrow shows the 
 data dependency between the jobs.  This example is located at 
 
-```
-$ cd tutorial-dagman-namd/TwoLinearDAG
-```
+	$ cd tutorial-dagman-namd/TwoLinearDAG
 
 The directory contains the input files, job submission files and execution scripts of the 
 jobs. What is missing here is the `.dag` file. See if you can write the DAGfile for this example 
@@ -161,9 +151,7 @@ of MD simulations `A1` and `B1`. In DAGMan lingo, `X` is the parent of `A1` and 
 
 The input files, job submission files and execution scripts of the jobs are located in the `X-DAG` subdirectory:
 
-```
-$ cd tutorial-dagman-namd/X-DAG
-```
+	$ cd tutorial-dagman-namd/X-DAG
 
 Again we are missing the `.dag` file here. See if you can write the DAG file for this example. 
 
@@ -178,19 +166,17 @@ Also DAGMan can help with the resubmission of uncompleted portions of a DAG, whe
 
 Say for example,  job `A2` in the above example is important and you want to eliminate the possibility as much as possible. One way is to retry the specific job `A2` a few times. DAGMan would retry failed jobs when you specify the following line at the end of dag file:
 
-``` 
-$ nano linear.dag #open the linear.dag file
- 
-### At the end of the linear.dag file
- 
-Retry A2 3 #This means re-try job A2 for three times in case of failures. 
-
-# If you want to retry jobs A2 and A3 for 7 times,  edit the linear.dag 
- 
-### At the end of the linear.dag file
-Retry A2 7 #This means re-try job A2 for seven times in case of failures.
-Retry A3 7 #This means re-try job A3 for seven times in case of failures.
-```
+	$ nano linear.dag #open the linear.dag file
+	 
+	### At the end of the linear.dag file
+	 
+	Retry A2 3 #This means re-try job A2 for three times in case of failures. 
+	
+	# If you want to retry jobs A2 and A3 for 7 times,  edit the linear.dag 
+	 
+	### At the end of the linear.dag file
+	Retry A2 7 #This means re-try job A2 for seven times in case of failures.
+	Retry A3 7 #This means re-try job A3 for seven times in case of failures.
  
 #### Rescue DAG
 
@@ -202,9 +188,7 @@ all over again but rather we want to start from Job `A2`. This information is em
 in the rescue DAG file. In our example of `linear.dag`, the rescue DAG file would 
 be `linear.dag.rescue`. So we re-submit the rescue DAG task as follows:
 
-```
-$ condor_submit_dag linear.dag.rescue
-```
+	$ condor_submit_dag linear.dag.rescue
  
 
 ## Keypoints
