@@ -1,4 +1,4 @@
-# Using Graphs for Workflow Management
+# DAGMan - NAMD example
 
  * [Objectives](#objectives)
  * [Overview](#overview)
