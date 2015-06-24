@@ -28,8 +28,8 @@ along a specific (causal) direction. In this tutorial we will learn how to
 apply DAGMan to help manage a set of molecular dynamics (_MD_) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. While NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores, one can exploit its capabilities in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using workflow tools such as DAGMan. 
 
 ![fig 1](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide1.jpg)
-![fig 1](/DAGManImages/Slide1.jpg)
-![fig 2](/DAGManImages/Slide5.jpg)
+![fig 1](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide1.jpg)
+![fig 2](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide5.jpg)
 
 
 ## Running MD Simulation with DAGMan    
@@ -49,7 +49,7 @@ integration steps to consume less computational time but demonstrate the ability
 of DAGMan. 
 
 
-![fig 3](/DAGManImages/Slide2.jpg)
+![fig 3](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide2.jpg)
 
 
 Say we have created four MD jobs: `A0`, `A1`, `A2` and `A3` that we want to run one 
@@ -126,7 +126,7 @@ successfully completed.  Of course, a thorough check requires inspection of the 
 
 ### Parallel DAG
 
-![fig 4](/DAGManImages/Slide3.jpg)
+![fig 4](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide3.jpg)
 
 
 Now we consider the workflow of two-linear set of jobs A0, A1, B0 and B1. Again these are 
@@ -148,7 +148,7 @@ finishing `A0` and `B0`, we do some analysis with the job `X`. The jobs `A1` and
 simulations independent of each other. The `X` job determines what is the simulation temperature 
 of MD simulations `A1` and `B1`. In DAGMan lingo, `X` is the parent of `A1` and `B1`.  
 
-![fig 5](/DAGManImages/Slide4.jpg)
+![fig 5](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide4.jpg)
 
 The input files, job submission files and execution scripts of the jobs are located in the `X-DAG` subdirectory:
 
