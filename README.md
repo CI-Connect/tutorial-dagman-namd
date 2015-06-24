@@ -28,7 +28,6 @@ along a specific (causal) direction. In this tutorial we will learn how to
 apply DAGMan to help manage a set of molecular dynamics (_MD_) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. While NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores, one can exploit its capabilities in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using workflow tools such as DAGMan. 
 
 ![fig 1](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide1.jpg)
-![fig 1](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide1.jpg)
 ![fig 2](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide5.jpg)
 
 
