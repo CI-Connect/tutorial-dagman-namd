@@ -1,16 +1,4 @@
-# DAGMan - NAMD example
-
- * [Objectives](#objectives)
- * [Overview](#overview)
- * [Running an MD Simulation with DAGMan](#running-md-simulation-with-dagman)
-   * [Linear DAG](#linear-dag)
-   * [Parallel DAG](#parallel-dag)
-   * [X-DAG](#x-dag)
-   * [Job Retry and Rescue](#job-retry-and-rescue)
-     * [Job Retry](#job-retry)
-     * [Rescue DAG](#rescue-dag)
- * [Keypoints](#keypoints)
- * [Getting Help](#getting-help)
+[title]: - "DAGMan - NAMD example"
 
 ## Objectives
 - [x] Learn about graphs as they relate to computation
