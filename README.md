@@ -1,5 +1,5 @@
 [title]: - "DAGMan - NAMD example"
-
+[TOC]
 ## Objectives
 - [x] Learn about graphs as they relate to computation
 - [x] Learn how a graph manager can implement a workflow management system
