@@ -59,16 +59,21 @@ HTCondor script files that execute the files `namd_run_job0.sh`,... etc.
 
 Let us take a look at the DAG file `linear.dag`.  
 
-	$ nano linear.dag #open the linear.dag file
-	
-	######DAG file######    #comment
-	Job A0 namd_run_job0.submit  #Job keyword, Job Name, Condor Job submission script.
-	Job A1 namd_run_job1.submit  #Job keyword, Job Name, Condor Job submission script.
-	Job A2 namd_run_job2.submit  #Job keyword, Job Name, Condor Job submission script.
-	Job A3 namd_run_job3.submit  #Job keyword, Job Name, Condor Job submission script.
-	PARENT A0 CHILD A1  #Inter Dependency between Job A0 and A1
-	PARENT A1 CHILD A2  #Inter Dependency between Job A1 and A2 
-	PARENT A2 CHILD A3  #Inter Dependency between Job A2 and A3
+    $ cat linear.dag #open the linear.dag file
+
+    ######DAG file###### 
+    ##### Define Jobs ###
+    #####  JOB JobName JobDescriptionFile
+    Job A0 namd_run_job0.submit
+    Job A1 namd_run_job1.submit
+    Job A2 namd_run_job2.submit
+    Job A3 namd_run_job3.submit
+
+    ##### Relationship between Jobs ###
+    ##### PARENT JobName CHILD JobName
+    PARENT A0 CHILD A1
+    PARENT A1 CHILD A2
+    PARENT A2 CHILD A3
 
 The first four lines after the comment are the listing of the HTCondor jobs  
 with name assignment:  `A0`, `A1`, `A2` and `A3`. Here the HTCondor job submit files 
@@ -77,32 +82,32 @@ The next three lines describe the relationships among the four jobs.
 
 Now we submit the DAGMan task.  
 
-	$ condor_submit_dag linear.dag 
+    $ condor_submit_dag linear.dag 
+
+    -----------------------------------------------------------------------
+    File for submitting this DAG to Condor           : linear.dag.condor.sub
+    Log of DAGMan debugging messages                 : linear.dag.dagman.out
+    Log of Condor library output                     : linear.dag.lib.out
+    Log of Condor library error messages             : linear.dag.lib.err
+    Log of the life of condor_dagman itself          : linear.dag.dagman.log
 	
-	-----------------------------------------------------------------------
-	File for submitting this DAG to Condor           : linear.dag.condor.sub
-	Log of DAGMan debugging messages                 : linear.dag.dagman.out
-	Log of Condor library output                     : linear.dag.lib.out
-	Log of Condor library error messages             : linear.dag.lib.err
-	Log of the life of condor_dagman itself          : linear.dag.dagman.log
-	
-	Submitting job(s).
-	1 job(s) submitted to cluster 1317501.
-	-----------------------------------------------------------------------
+    Submitting job(s).
+    1 job(s) submitted to cluster 1317501.
+    -----------------------------------------------------------------------
 	
 
 Note that the DAG file is submitted using the command `condor_submit_dag`.
 Let's monitor the job status every two seconds.  (Recall `connect watch`
 from a previous lesson.)
 
-	$ connect watch 2
-	
-	-- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
-	 ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
-	1317646.0   username          10/30 17:27   0+00:00:28 R  0   0.3  condor_dagman     
-	1317647.0   username          10/30 17:28   0+00:00:00 I  0   0.0  namd_run_job0.sh  
-	
-	2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
+    $ connect watch 2
+
+    -- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
+    ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
+    1317646.0   username          10/30 17:27   0+00:00:28 R  0   0.3  condor_dagman     
+    1317647.0   username          10/30 17:28   0+00:00:00 I  0   0.0  namd_run_job0.sh  
+
+    2 jobs; 0 completed, 0 removed, 1 idle, 1 running, 0 held, 0 suspended
 
 We need to type `Ctrl-C` to exit from watch command. We see two running jobs. One is the DAGMan 
 job which manages the execution of NAMD jobs. The other is the actual NAMD 
@@ -113,15 +118,36 @@ successfully completed.  Of course, a thorough check requires inspection of the 
 
 ### PRE and POST processing of jobs
 
+![fig 3a](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide07.png)
+
 Sometimes, we need to process a job before it begins or after it ends. Such pre-processing and post-processing are handled in DAGMan via SCRIPT command. Now let us see how this work for the linear DAG of NAMD jobs. 
 
-    $cd LinearDAG-
+    $ cd LinearDAG_PrePost
+    $ cat linear_prepost.dag
 
+    ######DAG file###### 
+    ##### Define Jobs ###
+    #####  JOB JobName JobDescriptionFile
+    Job A0 namd_run_job0.submit
+    Job A1 namd_run_job1.submit
+    Job A2 namd_run_job2.submit
+    Job A3 namd_run_job3.submit
 
+    ##### Relationship between Jobs ###
+    ##### PARENT JobName CHILD JobName
+    PARENT A0 CHILD A1
+    PARENT A1 CHILD A2
+    PARENT A2 CHILD A3
 
+    ##### PRE or POST processing of a job
+    ##### SCRIPT PRE or POST JobName ProcessScript
+    SCRIPT PRE   A0  pre-script-temperature.sh
+    SCRIPT POST  A3  post-script-energy.sh
 
-
-
+Except the script block, this DAG file is same as the previous DAG file. The script block specifies
+a pre script and a postscripts. The pre script `pre-script-temperature.sh` sets the temperature for the simulations and it is processed before the job `A0`. This is the first thing processed before 
+any simulation. The post script `post-script-energy.sh` runs after finishing all the simulation 
+jobs A0, A1, and A3. It extracts the energy values from the simulation results.  
 
 ### Parallel DAG
 
