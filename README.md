@@ -156,7 +156,7 @@ after finishing all the simulation jobs A0, A1, and A3. It extracts the energy v
 from the simulation results.  Both pre and post scripts are executed on the local submit 
 machines. Therefore these scripts need to be light weight processes. 
 
-<h3> Parallel DAG <\h3>
+<h3> Parallel DAG </h3>
 
 ![fig 4](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide3.png)
 
@@ -173,7 +173,7 @@ The directory contains the input files, job submission files and execution scrip
 missing here is the `.dag` file. See if you can write the DAGfile for this example 
 and submit the job. 
 
-<h2> X-DAG </h2>
+<h3> X-DAG </h3>
 We consider one more example workflow that allows the cross communication 
 between two parallel pipelines. The jobs `A0` and `B0` are two independent NAMD simulations. After 
 finishing `A0` and `B0`, we do some analysis with the job `X`. The jobs `A1` and `B1` are two MD 
