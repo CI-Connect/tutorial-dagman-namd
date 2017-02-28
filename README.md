@@ -1,6 +1,6 @@
 [title]: - "DAGMan - NAMD example"
 [TOC]
-<h2> Objectives <\h2>
+<h2> Objectives </h2>
 - [x] Learn about graphs as they relate to computation
 - [x] Learn how a graph manager can implement a workflow management system
 - [x] Use DAGMan to manage a set of molecular dyanmics calculations
