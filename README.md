@@ -1,11 +1,11 @@
 [title]: - "DAGMan - NAMD example"
 [TOC]
-## Objectives
+<h2> Objectives <\h2>
 - [x] Learn about graphs as they relate to computation
 - [x] Learn how a graph manager can implement a workflow management system
 - [x] Use DAGMan to manage a set of molecular dyanmics calculations
 
-## Overview 
+<h2> Overview <\h2>
 
 In scientific computing, one may have to perform several computing tasks or 
 data manipulations that are interdependent. Workflow management 
@@ -19,7 +19,7 @@ apply DAGMan to help manage a set of molecular dynamics (_MD_) simulations using
 ![fig 2](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide5.png)
 
 
-## Running MD Simulation with DAGMan    
+<h2> Running MD Simulation with DAGMan <\h2>  
 
 At present, the recommended execution time to run a condor job on OSG is about 2-3 hours. Jobs
 requiring more than 2-3 hours, need to be submitted with the restart files. Manually 
@@ -27,7 +27,7 @@ submitting small jobs repeatedly with restart files may not be practical in many
 situations. DAGMan offers an elegant and simple solution to run the set of jobs. With 
 the DAGMan script one could run a long time scale MD simulations of biomolecules. 
 
-### Linear DAG
+<h2> Linear DAG <\h2>
 
 In our first example, we will break the MD simulation in four steps and run it through the 
 DAGMan script. NAMD software is used to run each MD simulation. For the sake of 
@@ -119,7 +119,7 @@ files `OutFilesFromNAMD_job0.tar.gz`, `OutFilesFromNAMD_job1.tar.gz`, `OutFilesF
 and `OutFilesFromNAMD_job3.tar.gz`. If the output files are not empty, the jobs are 
 successfully completed.  Of course, a thorough check requires inspection of the results.  
 
-### PRE and POST processing of jobs
+<h2> PRE and POST processing of jobs <\h2>
 
 ![fig 3a](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide07.png)
 
@@ -156,7 +156,7 @@ after finishing all the simulation jobs A0, A1, and A3. It extracts the energy v
 from the simulation results.  Both pre and post scripts are executed on the local submit 
 machines. Therefore these scripts need to be light weight processes. 
 
-### Parallel DAG
+<h2> Parallel DAG <\h2>
 
 ![fig 4](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide3.png)
 
