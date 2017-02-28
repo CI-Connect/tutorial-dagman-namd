@@ -7,7 +7,7 @@
 
 ## Overview 
 
-In scientific computing, one may have to perform several computational tasks or 
+In scientific computing, one may have to perform several computing tasks or 
 data manipulations that are interdependent. Workflow management 
 systems help to deal with such tasks or data manipulations. [DAGMan](http://research.cs.wisc.edu/htcondor/dagman/dagman.html) (Directed Acyclic Graph Manager) is a workflow management system based on graphs (see figures below) developed by the HTCondor team. DAGMan handles sets of computational jobs 
 that are mapped as a directed acyclic graph. A cyclic graph forms a loop while an acyclic graph does 
@@ -39,8 +39,8 @@ of DAGMan.
 ![fig 3](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide2.png)
 
 
-Say we have created four MD jobs: `A0`, `A1`, `A2` and `A3` that we want to run one 
-after another and combine the results. This means that the output files from the 
+Say we have created four MD jobs `A0`, `A1`, `A2`, and `A3` that we want to run one 
+after another in a sequential order. In these calculations,  the output files from the 
 job `A0` serves as an input for the job `A1` and so forth. The input and output 
 dependencies of the jobs are such that they need to be progressed in a linear 
 fashion:  `A0-->A1-->A2-->A3`. These set of jobs clearly represents an 
@@ -51,23 +51,23 @@ The DAGMan script and the necessary files are available to the user
 by invoking the `tutorial` command. 
 
 	$ tutorial dagman-namd
-	$ cd tutorial-dagman-namd
+	$ cd tutorial-dagman-namd/LinearDAG
 
-The directory `tutorial-dagman-namd` contains all the necessary files. The file 
-`linear.dag` is the DAGMan script. The files `namd_run_job0.submit`, ... are the 
-HTCondor script files that execute the files `namd_run_job0.sh`,... etc.
+The directory `tutorial-dagman-namd/LinearDAG` contains all the necessary files. The file 
+`linear.dag` is the DAGMan input file. The files `namd_run_job0.submit`, ... are the 
+HTCondor job description files that execute the files `namd_run_job0.sh`,... etc.
 
 Let us take a look at the DAG file `linear.dag`.  
 
-    $ cat linear.dag #open the linear.dag file
+    $ cat linear.dag 
 
     ######DAG file###### 
     ##### Define Jobs ###
     #####  JOB JobName JobDescriptionFile
-    Job A0 namd_run_job0.submit
-    Job A1 namd_run_job1.submit
-    Job A2 namd_run_job2.submit
-    Job A3 namd_run_job3.submit
+    JOB A0 namd_run_job0.submit
+    JOB A1 namd_run_job1.submit
+    JOB A2 namd_run_job2.submit
+    JOB A3 namd_run_job3.submit
 
     ##### Relationship between Jobs ###
     ##### PARENT JobName CHILD JobName
@@ -75,11 +75,16 @@ Let us take a look at the DAG file `linear.dag`.
     PARENT A1 CHILD A2
     PARENT A2 CHILD A3
 
-The first four lines after the comment are the listing of the HTCondor jobs  
-with name assignments  `A0`, `A1`, `A2`, and `A3` along with job description files  `namd_run_job0.submit`, `namd_run_job1.submit...`.   
-The next three lines describe the relationships among the four jobs. 
+A line begins with pound (#) character is a comment. A line begins with the `JOB` command defines
+the actual job (nodes) that will be send to HTCondor schedular.  A line 
+with `PARENT` and `CHILD` commands describes the dependency between jobs. 
 
-Now we submit the DAGMan task.  
+In `linear.dag` file, the jobs have names `A0`, `A1`, `A2`, and `A3`. The job name 
+has to be unique.  Her, the job description files are  `namd_run_job0.submit`, `namd_run_job1.submit...`.  The depenency between these jobs are described by `PARENT` and `CHILD` commands with job 
+name as arguments. 
+
+
+We submit the DAGMan task using the command `condor_submit_dag` 
 
     $ condor_submit_dag linear.dag 
 
@@ -95,7 +100,6 @@ Now we submit the DAGMan task.
     -----------------------------------------------------------------------
 	
 
-Note that the DAG file is submitted using the command `condor_submit_dag`.
 Let's monitor the job status every two seconds.  (Recall `connect watch`
 from a previous lesson.)
 
@@ -127,10 +131,10 @@ Sometimes, we need to process a job before it begins or after it ends. Such pre-
     ######DAG file###### 
     ##### Define Jobs ###
     #####  JOB JobName JobDescriptionFile
-    Job A0 namd_run_job0.submit
-    Job A1 namd_run_job1.submit
-    Job A2 namd_run_job2.submit
-    Job A3 namd_run_job3.submit
+    JOB A0 namd_run_job0.submit
+    JOB A1 namd_run_job1.submit
+    JOB A2 namd_run_job2.submit
+    JOB A3 namd_run_job3.submit
 
     ##### Relationship between Jobs ###
     ##### PARENT JobName CHILD JobName
@@ -143,10 +147,14 @@ Sometimes, we need to process a job before it begins or after it ends. Such pre-
     SCRIPT PRE   A0  pre-script-temperature.sh
     SCRIPT POST  A3  post-script-energy.sh
 
-Except the script block, this DAG file is same as the previous DAG file. The script block specifies
-a pre script and a postscripts. The pre script `pre-script-temperature.sh` sets the temperature for the simulations and it is processed before the job `A0`. This is the first thing processed before 
-any simulation. The post script `post-script-energy.sh` runs after finishing all the simulation 
-jobs A0, A1, and A3. It extracts the energy values from the simulation results.  
+Except the script block, this DAG file `linear-post.dag` is same as the previous DAG 
+file `linear.dag`. The script block specifies a pre script and a postscripts. 
+
+The pre script `pre-script-temperature.sh` sets the temperature for the simulations and it is processed before the job `A0`.  This means the pre script is the first 
+thing processed before any simulation.  The post script `post-script-energy.sh` runs 
+after finishing all the simulation jobs A0, A1, and A3. It extracts the energy values 
+from the simulation results.  Both pre and post scripts are executed on the local submit 
+machines. Therefore these scripts need to be light weight processes. 
 
 ### Parallel DAG
 
@@ -157,17 +165,17 @@ Now we consider the workflow of two-linear set of jobs A0, A1, B0 and B1. Again 
 NAMD jobs. The job A0 is parent 
 of A0 and the job B0 is the parent of B1. The jobs A0 and A1 do not depend on B0 and B1. This 
 means we have two parallel DAGs that are represented as A0->A1 and B0->B1. The arrow shows the 
-data dependency between the jobs.  This example is located at 
+order of job execution. This example is located at 
 
 	$ cd tutorial-dagman-namd/TwoLinearDAG
 
-The directory contains the input files, job submission files and execution scripts of the 
-jobs. What is missing here is the `.dag` file. See if you can write the DAGfile for this example 
+The directory contains the input files, job submission files and execution scripts.  What is 
+missing here is the `.dag` file. See if you can write the DAGfile for this example 
 and submit the job. 
 
 ### X-DAG
-We consider one more example of jobs `A0`, `A1`, `X`, `B0` and `B1` that allows the cross communication 
-between two parallel jobs. The jobs `A0` and `B0` are two independent NAMD simulations. After 
+We consider one more example workflow that allows the cross communication 
+between two parallel pipelines. The jobs `A0` and `B0` are two independent NAMD simulations. After 
 finishing `A0` and `B0`, we do some analysis with the job `X`. The jobs `A1` and `B1` are two MD 
 simulations independent of each other. The `X` job determines what is the simulation temperature 
 of MD simulations `A1` and `B1`. In DAGMan lingo, `X` is the parent of `A1` and `B1`.  
