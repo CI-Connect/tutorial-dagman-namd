@@ -76,8 +76,7 @@ Let us take a look at the DAG file `linear.dag`.
     PARENT A2 CHILD A3
 
 The first four lines after the comment are the listing of the HTCondor jobs  
-with name assignment:  `A0`, `A1`, `A2` and `A3`. Here the HTCondor job submit files 
-that run the individual MD similations are  `namd_run_job0.submit`, `namd_run_job1.submit...`.   
+with name assignments  `A0`, `A1`, `A2`, and `A3` along with job description files  `namd_run_job0.submit`, `namd_run_job1.submit...`.   
 The next three lines describe the relationships among the four jobs. 
 
 Now we submit the DAGMan task.  
