@@ -1,6 +1,8 @@
 Universe = vanilla
 Executable = jobB1.sh
 
+Requirements = OSGVO_OS_STRING == "RHEL 6" && Arch == "X86_64" &&  HAS_MODULES == True
+
 transfer_input_files = namd_jobB1.conf, ubq.pdb, ubq.psf, par_all27_prot_lipid.inp, OutFilesFromNAMD_jobB0.tar.gz
 transfer_output_files = OutFilesFromNAMD_jobB1.tar.gz
 should_transfer_files=Yes
