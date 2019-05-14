@@ -20,6 +20,9 @@ In this tutorial, we will learn how to apply DAGMan to help us manage jobs and j
 
 DAGMan offers an elegant and simple solution to reduce the management burden on you (the user) if you have more than a handful of jobs to run or there are jobs that dependent on each other. For example, if you have a set of jobs that may take longer than 2-3 hours to complete, a subset of your jobs may be terminated prematurely. Managing the resubmission of prematurely terminated jobs manually is not practical in most cases. DAGMan tracks which jobs were terminated prematurely, and allows you to resubmit the terminated jobs with one command. Similarly, if you have a set of jobs that depend on each other in some way, DAGMan has the functionality to allow you define these dependencies and manage them for you.
 
+** When first starting out with DAGMan, your project must be correctly set using the `connect project` command. Failure to set your project could result in job failures. Once the correct project has been set, this step only needs to be repeated if a different project is needed. **
+
+
 <h3> Job Management with DAGMan </h3>
 
 The first examples, we will revisit the example from the previous section. In this example, we had a job that we first wanted to execute a several times and subsequently with a set of input parameters. 
