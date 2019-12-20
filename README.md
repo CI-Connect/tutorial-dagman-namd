@@ -441,4 +441,4 @@ Again we are missing the `.dag` file here. See if you can write the DAG file for
 
 
 <h2> Getting Help </h2>
-For assistance or questions, please email the OSG User Support team  at <mailto:user-support@opensciencegrid.org> or visit the [help desk and community forums](http://support.opensciencegrid.org).
+For assistance or questions, please email the OSG User Support team  at <mailto:support@opensciencegrid.org> or visit the [help desk and community forums](http://support.opensciencegrid.org).

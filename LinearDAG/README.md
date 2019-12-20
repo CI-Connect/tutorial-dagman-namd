@@ -198,4 +198,4 @@ be `linear.dag.rescue`. So we re-submit the rescue DAG task as follows:
 
 
 ## Getting Help
-For assistance or questions, please email the OSG User Support team  at <mailto:user-support@opensciencegrid.org> or visit the [help desk and community forums](http://support.opensciencegrid.org).
+For assistance or questions, please email the OSG User Support team  at <mailto:support@opensciencegrid.org> or visit the [help desk and community forums](http://support.opensciencegrid.org).
