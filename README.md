@@ -7,32 +7,63 @@
 
 <h2> Overview </h2>
 
-In High Throughput Computing, one is typically faced with having to manage a large set of computational tasks. This can include situations in which tasks may depend on one another. Workflow management systems can help relieve job management burden for you, the user. [DAGMan](http://research.cs.wisc.edu/htcondor/manual/v8.5/2_10DAGMan_Applications.html) (Directed Acyclic Graph Manager) is a workflow management system based on graphs (see figures below) build into HTCondor. DAGMan handles sets of computational jobs that can be described as a set of nodes in a ["directed acyclic graph"](https://en.wikipedia.org/wiki/Directed_acyclic_graph). This means that the job dependencies do not form a loop, see "Cyclic" vs. "Acyclic" figure below. 
+In High Throughput Computing, one is typically faced with having to manage a 
+large set of computational tasks. This can include situations in which tasks 
+may depend on one another. Workflow management systems can help relieve job 
+management burden for you, the user. [DAGMan](http://research.cs.wisc.edu/htcondor/manual/v8.5/2_10DAGMan_Applications.html) 
+(Directed Acyclic Graph Manager) is a workflow management system based on graphs 
+(see figures below) build into HTCondor. DAGMan handles sets of computational 
+jobs that can be described as a set of nodes in a ["directed acyclic graph"]
+(https://en.wikipedia.org/wiki/Directed_acyclic_graph). This means that the job 
+dependencies do not form a loop, see "Cyclic" vs. "Acyclic" figure below. 
 
 ![fig 1](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide1.png)
 
-In this tutorial, we will learn how to apply DAGMan to help us manage jobs and job interdependencies. First, we will revisit the optimization example from in the previous section. Second, we will manage a set of molecular dynamics (_MD_) simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. NAMD is conventionally used in highly parallel HPC settings, scaling to thousands of cores managed by a single job. One can achieve the same scaling and ease of management in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) using thousands of individual jobs using workflow tools such as DAGMan. 
+In this tutorial, we will learn how to apply DAGMan to help us manage jobs and 
+job interdependencies. First, we will revisit the optimization example from in 
+the previous section. Second, we will manage a set of molecular dynamics (_MD_) 
+simulations using the [NAMD](http://www.ks.uiuc.edu/Research/namd/) program. 
+NAMD is conventionally used in highly parallel HPC settings, scaling to thousands 
+of cores managed by a single job. One can achieve the same scaling and ease of 
+management in [HTC systems](http://en.wikipedia.org/wiki/High-throughput_computing) 
+using thousands of individual jobs using workflow tools such as DAGMan. 
 
 ![fig 2](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide5.png)
 
 
 <h2> Running Jobs with DAGMan </h2>  
 
-DAGMan offers an elegant and simple solution to reduce the management burden on you (the user) if you have more than a handful of jobs to run or there are jobs that dependent on each other. For example, if you have a set of jobs that may take longer than 2-3 hours to complete, a subset of your jobs may be terminated prematurely. Managing the resubmission of prematurely terminated jobs manually is not practical in most cases. DAGMan tracks which jobs were terminated prematurely, and allows you to resubmit the terminated jobs with one command. Similarly, if you have a set of jobs that depend on each other in some way, DAGMan has the functionality to allow you define these dependencies and manage them for you.
+DAGMan offers an elegant and simple solution to reduce the management burden on 
+you (the user) if you have more than a handful of jobs to run or there are jobs 
+that dependent on each other. For example, if you have a set of jobs that may 
+take longer than 2-3 hours to complete, a subset of your jobs may be terminated 
+prematurely. Managing the resubmission of prematurely terminated jobs manually 
+is not practical in most cases. DAGMan tracks which jobs were terminated 
+prematurely, and allows you to resubmit the terminated jobs with one command. 
+Similarly, if you have a set of jobs that depend on each other in some way, 
+DAGMan has the functionality to allow you define these dependencies and manage 
+them for you.
 
-** When first starting out with DAGMan, your project must be correctly set using the `connect project` command. Failure to set your project could result in job failures. Once the correct project has been set, this step only needs to be repeated if a different project is needed. **
+** When first starting out with DAGMan, your project must be correctly set using 
+the `connect project` command. Failure to set your project could result in job 
+failures. Once the correct project has been set, this step only needs to be 
+repeated if a different project is needed. **
 
 
 <h3> Job Management with DAGMan </h3>
 
-The first examples, we will revisit the example from the previous section. In this example, we had a job that we first wanted to execute a several times and subsequently with a set of input parameters. 
+The first examples, we will revisit the example from the previous section. In 
+this example, we had a job that we first wanted to execute a several times and 
+subsequently with a set of input parameters. 
 
-The DAGMan script and the necessary files are available to the user by invoking the `tutorial` command. 
+The DAGMan script and the necessary files are available to the user by invoking 
+the `tutorial` command. 
 
     $ tutorial dagman-namd
     $ cd tutorial-dagman-namd/JobManagementDAG
 
-The directory `tutorial-dagman-namd/JobManagementDAG` contains all the necessary files. The file `jobmanagement.dag` is the DAGMan input file.
+The directory `tutorial-dagman-namd/JobManagementDAG` contains all the necessary 
+files. The file `jobmanagement.dag` is the DAGMan input file.
 
 Let us take a look at the DAG file `jobmanagement.dag`.  
 
@@ -46,7 +77,12 @@ Let us take a look at the DAG file `jobmanagement.dag`.
     JOB A2 run_job.submit
     JOB A3 run_job.submit
 
-To define a job (or node in DAG lingo), we have a line beginning with the keyword `JOB` followed by a unique identifier for that job, for example, `A0` for the first job and, the HTCondor submit file to be used, i.e. `run_job.submit`.  A line starting with pound (#) character is a comment. The submit file `run_job.submit` is the same as in the previous example modulo the last time that now reads `Queue 1`, see:
+To define a job (or node in DAG lingo), we have a line beginning with the keyword 
+`JOB` followed by a unique identifier for that job, for example, `A0` for the 
+first job and, the HTCondor submit file to be used, i.e. `run_job.submit`.  A 
+line starting with pound (#) character is a comment. The submit file 
+`run_job.submit` is the same as in the previous example modulo the last time 
+that now reads `Queue 1`, see:
 
     $ cat run_job.submit
 
@@ -108,9 +144,9 @@ We submit the DAGMan task using the command `condor_submit_dag`
     -----------------------------------------------------------------------
     
 
-Let's monitor the job status every two seconds. (Recall `connect watch` from a previous lesson.)
+Let's check job status
 
-    $ connect watch 2
+    $ condor_q
 
     -- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
     ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
@@ -122,11 +158,16 @@ Let's monitor the job status every two seconds. (Recall `connect watch` from a p
 
     4 jobs; 0 completed, 0 removed, 4 idle, 1 running, 0 held, 0 suspended
 
-We see five running jobs. One is the DAGMan job which manages the execution of jobs inside the DAG. The others are the jobs controlled by the DAG.  We need to type `Ctrl-C` to exit from watch command. Once the DAG completes, the queue will be empty. 
+We see five running jobs. One is the DAGMan job which manages the execution of 
+jobs inside the DAG. The others are the jobs controlled by the DAG.  We need to 
+type `Ctrl-C` to exit from watch command. Once the DAG completes, the queue will 
+be empty. 
 
 <h4> Supplying Variables to Jobs in DAGMan </h4>
 
-Let's take this a step further. In the previous section, we wanted to supply some boundary conditions to the calulation using the `argument` keyword. The same is possible with DAGMan. Taking a look at `jobmanagement_supplyvars.dag`:
+Let's take this a step further. In the previous section, we wanted to supply 
+some boundary conditions to the calulation using the `argument` keyword. The 
+same is possible with DAGMan. Taking a look at `jobmanagement_supplyvars.dag`:
 
     $ cat jobmanagement_supplyvars.dag 
 
@@ -143,7 +184,10 @@ Let's take this a step further. In the previous section, we wanted to supply som
     VARS A2 x_low="-7" x_high="7" y_low="-7" y_high="7"
     VARS A3 x_low="-6" x_high="6" y_low="-6" y_high="6"
 
-From `jobmanagement.dag`, we added four lines starting with the keyword `VARS`. Each line follows a similar pattern to the job definition line we looked at above: `VARS <unique_ID_job> <list_of_variables>`. Please note that the variable values have to be in `""` independent on whether they are numbers, strings, etc. 
+From `jobmanagement.dag`, we added four lines starting with the keyword `VARS`. 
+Each line follows a similar pattern to the job definition line we looked at 
+above: `VARS <unique_ID_job> <list_of_variables>`. Please note that the variable 
+values have to be in `""` independent on whether they are numbers, strings, etc. 
 
 Now we take a look at `run_job_vars.submit`:
 
@@ -198,7 +242,8 @@ It is the same as `run_job.submit` with the added line `arguments = $(x_low) $(x
 
 <h4> DAGMan Log Files </h4>
 
-When submitting a DAGMan job, HTCondor helpfully tells you what the log files are named and what their use is:
+When submitting a DAGMan job, HTCondor helpfully tells you what the log files 
+are named and what their use is:
 
     $ condor_submit_dag jobmanagement.dag 
 
@@ -213,7 +258,13 @@ When submitting a DAGMan job, HTCondor helpfully tells you what the log files ar
     1 job(s) submitted to cluster 1317501.
     -----------------------------------------------------------------------
     
-The most important log here is `jobmanagement.dag.dagman.out`. It allows you to monitor the progress of the workflow, what jobs were just submitted, and how many jobs are at the various stages of submission, i.e. in the `PRE` or `POST` script phase, how many are `Ready` to be submitted, how many are waiting for other jobs to finish (`Un-Ready`), how many have failed or completed. Don't worry we will explain some of these terms in the following examples. Taking a look at this file:
+The most important log here is `jobmanagement.dag.dagman.out`. It allows you to 
+monitor the progress of the workflow, what jobs were just submitted, and how 
+many jobs are at the various stages of submission, i.e. in the `PRE` or `POST` 
+script phase, how many are `Ready` to be submitted, how many are waiting for 
+other jobs to finish (`Un-Ready`), how many have failed or completed. Don't 
+worry we will explain some of these terms in the following examples. Taking a 
+look at this file:
 
     $ cat jobmanagement.dag.dagman.out
 
@@ -275,11 +326,16 @@ The most important log here is `jobmanagement.dag.dagman.out`. It allows you to 
 
 <h4> Job Retry and Rescue </h4>
 
-In the above examples, we use an independent set of jobs. What happens if any of these jobs fail? DAGMan can help with the resubmission of uncompleted portions of a DAG, when one or more nodes result in failure.  
+In the above examples, we use an independent set of jobs. What happens if any of 
+these jobs fail? DAGMan can help with the resubmission of uncompleted portions 
+of a DAG, when one or more nodes result in failure.  
 
 <h4> Job Retry </h4>
 
-Say for example, job `A2` in the above example is important and you want to eliminate the possibility as much as possible. One way is to retry the specific job `A2` a few times. DAGMan would retry failed jobs when you specify the following line at the end of dag file:
+Say for example, job `A2` in the above example is important and you want to 
+eliminate the possibility as much as possible. One way is to retry the specific 
+job `A2` a few times. DAGMan would retry failed jobs when you specify the 
+following line at the end of dag file:
 
     $ nano jobmanagement.dag # Open the jobmanagement.dag file
      
@@ -297,35 +353,67 @@ If you want to retry jobs `A2` and `A3` for 7 times, edit the `jobmanagement.dag
  
 <h4> Rescue DAG </h4>
 
-If DAGMan fails to complete the list of tasks, it creates a rescue DAG file with a suffix `.rescueXXX`, where `XXX` is a number starting at `001`. The rescue DAG file contains the information about which jobs have completed and which have failed or haven't completed. Say for example, in our workflow of four linear jobs, the jobs `A0` and `A1` finished, `A2` failed, and `A3` is incomplete. In such a case, we do not want to start executing the jobs all over again but rather we want to start from `A2`. This information is embedded in the rescue DAG file. In our example of `linear.dag`, the rescue DAG file would be `linear.dag.rescue001`. We re-submit the DAG:
+If DAGMan fails to complete the list of tasks, it creates a rescue DAG file with 
+a suffix `.rescueXXX`, where `XXX` is a number starting at `001`. The rescue DAG 
+file contains the information about which jobs have completed and which have 
+failed or haven't completed. Say for example, in our workflow of four linear 
+jobs, the jobs `A0` and `A1` finished, `A2` failed, and `A3` is incomplete. In 
+such a case, we do not want to start executing the jobs all over again but 
+rather we want to start from `A2`. This information is embedded in the rescue 
+DAG file. In our example of `linear.dag`, the rescue DAG file would be 
+`linear.dag.rescue001`. We re-submit the DAG:
 
     $ condor_submit_dag jobmanagement.dag
 
-and HTCondor will automatically detect the rescue DAG and use it to only submit the jobs that have yet to sucessfully complete. 
+and HTCondor will automatically detect the rescue DAG and use it to only submit 
+the jobs that have yet to sucessfully complete. 
 
 <h4> Submission Tuning </h4>
 
-One additional feature of DAGMan is that you are able to tune how many total jobs to have sitting in the queue or how fast jobs are submitted to the cluster. This is especially important if you have fairly large number of jobs, i.e. more than 10000. HTCondor can handle up to 200000 jobs in the queue simultaneously, but only on dedicated and specialized hardware. To accomodate other users on the OSG Connect system and reduce stress on the system, we recommend that you keep less than 30000 jobs in the queue in the idle state. 
+One additional feature of DAGMan is that you are able to tune how many total 
+jobs to have sitting in the queue or how fast jobs are submitted to the cluster. 
+This is especially important if you have fairly large number of jobs, i.e. more 
+than 10000. HTCondor can handle up to 200000 jobs in the queue simultaneously, 
+but only on dedicated and specialized hardware. To accomodate other users on 
+the OSG Connect system and reduce stress on the system, we recommend that you 
+keep less than 30000 jobs in the queue in the idle state. 
 
-DAGMan can be configured to allow you operate within those limits. The simplest way is to pass a text file with your configuration parameters to `condor_submit_dag`: `condor_submit_dag -config dagman.config your_dag.dag`. The configuration file will look something like:
+DAGMan can be configured to allow you operate within those limits. The simplest 
+way is to pass a text file with your configuration parameters to 
+`condor_submit_dag`: `condor_submit_dag -config dagman.config your_dag.dag`. 
+The configuration file will look something like:
 
     DAGMAN_MAX_JOBS_IDLE=30000
     DAGMAN_USER_LOG_SCAN_INTERVAL=1
     DAGMAN_MAX_SUBMITS_PER_INTERVAL=10
 
-`DAGMAN_MAX_JOBS_IDLE` tells your DAGMan job to limit the maximum number of jobs that are sitting in the queue to be 30000. `DAGMAN_USER_LOG_SCAN_INTERVAL` tells your DAGMan how often to look for a changed job state, i.e. that a job failed or completed. `DAGMAN_MAX_SUBMITS_PER_INTERVAL` is to tune how many jobs DAGMan submits every interval. The last two variables are for tuning how rapidly and how many jobs are submitted. For more configuration parameters and their documentation, go [here](http://research.cs.wisc.edu/htcondor/manual/v7.8/3_3Configuration.html#sec:DAGMan-Config-File-Entries)
+`DAGMAN_MAX_JOBS_IDLE` tells your DAGMan job to limit the maximum number of jobs 
+that are sitting in the queue to be 30000. `DAGMAN_USER_LOG_SCAN_INTERVAL` tells 
+your DAGMan how often to look for a changed job state, i.e. that a job failed or 
+completed. `DAGMAN_MAX_SUBMITS_PER_INTERVAL` is to tune how many jobs DAGMan 
+submits every interval. The last two variables are for tuning how rapidly and 
+how many jobs are submitted. For more configuration parameters and their 
+documentation, go [here](http://research.cs.wisc.edu/htcondor/manual/v7.8/3_3Configuration.html#sec:DAGMan-Config-File-Entries)
 
 <h3> Managing Job Interdependecy with DAGMan </h3>
 
-In our second example, we will use four MD simulations that have some level of job interdependence. 
+In our second example, we will use four MD simulations that have some level of 
+job interdependence. 
 
 <h4> Linear DAG </h4>
 
-A linear job dependence means that they will be submitted sequentially by HTCondor. For the sake of simplicity, we have artifically reduced the number of computation steps for each simulation.
+A linear job dependence means that they will be submitted sequentially by 
+HTCondor. For the sake of simplicity, we have artifically reduced the number 
+of computation steps for each simulation.
 
 ![fig 3](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide2.png)
 
-Instead of running the four jobs from the above example independently, we want to run them sequentially, i.e. `A0-->A1-->A2-->A3`. In these calculations, the output files from the job `A0` serves as an input for the job `A1` and so forth. These set of jobs clearly represents an acyclic graph. In DAGMan language, job `A0` is parent of job `A1`, job `A1` is parent of `A2` and job `A2` is parent of `A3`. 
+Instead of running the four jobs from the above example independently, we want 
+to run them sequentially, i.e. `A0-->A1-->A2-->A3`. In these calculations, the 
+output files from the job `A0` serves as an input for the job `A1` and so forth. 
+These set of jobs clearly represents an acyclic graph. In DAGMan language, job 
+`A0` is parent of job `A1`, job `A1` is parent of `A2` and job `A2` is parent of 
+`A3`. 
 
 First:
 
@@ -349,7 +437,11 @@ Let us take a look at the DAG file `linear.dag`.
     PARENT A1 CHILD A2
     PARENT A2 CHILD A3
 
-The file looks similar to the one used for the no dependency example above. The main addition are the last three lines containing the definition of the job interdependency. The `PARENT` and `CHILD` commands describes the dependency between jobs, where a job(s) following the `PARENT` command need to successfully complete before jobs following `CHILD` command are submitted. 
+The file looks similar to the one used for the no dependency example above. The 
+main addition are the last three lines containing the definition of the job 
+interdependency. The `PARENT` and `CHILD` commands describes the dependency 
+between jobs, where a job(s) following the `PARENT` command need to successfully 
+complete before jobs following `CHILD` command are submitted. 
 
 If we now submit the DAG:
 
@@ -367,9 +459,9 @@ If we now submit the DAG:
     -----------------------------------------------------------------------
     
 
-Let's monitor the job status every two seconds. (Recall `connect watch` from a previous lesson.)
+Let's check job status
 
-    $ connect watch 2
+    $ condor_q
 
     -- Submitter: login01.osgconnect.net : <192.170.227.195:48781> : login01.osgconnect.net
     ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD               
@@ -378,13 +470,17 @@ Let's monitor the job status every two seconds. (Recall `connect watch` from a p
 
     2 jobs; 0 completed, 0 removed, 4 idle, 1 running, 0 held, 0 suspended
 
-Only two jobs are running now: the DAGMan job and the top-level parent, i.e. job `A0`. `A1` through `A3` will have to wait until their parent job(s) have completed before the are executed.
+Only two jobs are running now: the DAGMan job and the top-level parent, i.e. job 
+`A0`. `A1` through `A3` will have to wait until their parent job(s) have completed 
+before the are executed.
 
 <h4> PRE and POST processing of jobs </h4>
 
 ![fig 3a](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide07.png)
 
-Sometimes, we need to perform a task before a job is submitted or after it is completed. Such pre-processing and post-processing are handled in DAGMan via SCRIPT command. Now let us see how this work for the linear DAG of NAMD jobs. 
+Sometimes, we need to perform a task before a job is submitted or after it is 
+completed. Such pre-processing and post-processing are handled in DAGMan via 
+SCRIPT command. Now let us see how this work for the linear DAG of NAMD jobs. 
 
     $ cd ../LinearDAG-PrePost
     $ cat linear_prepost.dag
@@ -408,37 +504,61 @@ Sometimes, we need to perform a task before a job is submitted or after it is co
     SCRIPT PRE   A0  pre-script-temperature.sh
     SCRIPT POST  A3  post-script-energy.sh
 
-Except the last four lines block, this DAG file `linear-post.dag` is same as the previous DAG file `linear.dag`. The script block specifies a pre script and/or post script and which job they are associated with. 
+Except the last four lines block, this DAG file `linear-post.dag` is same as the 
+previous DAG file `linear.dag`. The script block specifies a pre script and/or 
+post script and which job they are associated with. 
 
-The pre script `pre-script-temperature.sh` sets the temperature for the simulations and it is processed before the job `A0`.  This means the pre script is the first thing processed before any job is submitted.  The post script `post-script-energy.sh` runs after finishing all the simulation jobs `A0`, `A1`, `A2`, and `A3`. It extracts the energy values from the simulation results.  Both pre and post scripts are executed on the local submit machines and not on a remote worker. These scripts should be as lightweight processes as possible.
+The pre script `pre-script-temperature.sh` sets the temperature for the 
+simulations and it is processed before the job `A0`.  This means the pre script 
+is the first thing processed before any job is submitted.  The post script 
+`post-script-energy.sh` runs after finishing all the simulation jobs `A0`, `A1`, 
+`A2`, and `A3`. It extracts the energy values from the simulation results. Both 
+pre and post scripts are executed on the local submit machines and not on a 
+remote worker. These scripts should be as lightweight processes as possible.
 
 <h4> Parallel DAG </h4>
 
 ![fig 4](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide3.png)
 
-Now we consider the workflow of two-linear set of jobs `A0`, `A1`, `B0` and `B1`. Again these are NAMD jobs. The job `A0` is parent of `A1` and the job `B0` is the parent of `B1`. The jobs `A0` and `A1` do not depend on `B0` and/or `B1`. This means we have two parallel workflows that are represented as `A0->A1` and `B0->B1`. The arrow shows the order of job execution. This example is located at 
+Now we consider the workflow of two-linear set of jobs `A0`, `A1`, `B0` and `B1`. 
+Again these are NAMD jobs. The job `A0` is parent of `A1` and the job `B0` is 
+the parent of `B1`. The jobs `A0` and `A1` do not depend on `B0` and/or `B1`. 
+This means we have two parallel workflows that are represented as `A0->A1` and 
+`B0->B1`. The arrow shows the order of job execution. This example is located at 
 
     $ cd tutorial-dagman-namd/TwoLinearDAG
 
-The directory contains the input files, job submission files and execution scripts.  What is missing here is the `.dag` file. See if you can write the DAGfile for this example and submit the job. 
+The directory contains the input files, job submission files and execution 
+scripts.  What is missing here is the `.dag` file. See if you can write the 
+DAGfile for this example and submit the job. 
 
 <h4> X-DAG </h4>
-We consider one more example workflow that allows the cross communication between two parallel pipelines. The jobs `A0` and `B0` are two independent NAMD simulations. After finishing `A0` and `B0`, we do some analysis with the job `X`. The jobs `A1` and `B1` are two MD simulations independent of each other. The `X` job determines what is the simulation temperature of MD simulations `A1` and `B1`. In DAGMan lingo, `X` is the parent of `A1` and `B1`.  
+We consider one more example workflow that allows the cross communication 
+between two parallel pipelines. The jobs `A0` and `B0` are two independent NAMD 
+simulations. After finishing `A0` and `B0`, we do some analysis with the job `X`. 
+The jobs `A1` and `B1` are two MD simulations independent of each other. The `X` 
+job determines what is the simulation temperature of MD simulations `A1` and 
+`B1`. In DAGMan lingo, `X` is the parent of `A1` and `B1`.  
 
 ![fig 5](https://raw.githubusercontent.com/OSGConnect/tutorial-dagman-namd/master/DAGManImages/Slide4.png)
 
-The input files, job submission files and execution scripts of the jobs are located in the `X-DAG` subdirectory:
+The input files, job submission files and execution scripts of the jobs are 
+located in the `X-DAG` subdirectory:
 
     $ cd tutorial-dagman-namd/X-DAG
 
-Again we are missing the `.dag` file here. See if you can write the DAG file for this example. Hint: Does the job in the center actually need to do anything (is it a NOOP in programming speak)? Check the DAGMan docs!
+Again we are missing the `.dag` file here. See if you can write the DAG file for 
+this example. Hint: Does the job in the center actually need to do anything (is 
+it a NOOP in programming speak)? Check the DAGMan docs!
  
 
 <h2> Keypoints </h2>
-- [x] DAGMan handles computational jobs that are mapped as a directed acyclic graph.
+- [x] DAGMan handles computational jobs that are mapped as a directed acyclic 
+graph.
 - [x] `condor_submit_dag` is the command to submit a DAGMan task. 
 - [x] One may write DAGMan files consisting of several DAGMan tasks. 
 
 
 <h2> Getting Help </h2>
-For assistance or questions, please email the OSG User Support team  at <mailto:support@opensciencegrid.org> or visit the [help desk and community forums](http://support.opensciencegrid.org).
+For assistance or questions, please email the OSG User Support team  at 
+<mailto:support@opensciencegrid.org> or visit the [help desk](http://support.opensciencegrid.org).
